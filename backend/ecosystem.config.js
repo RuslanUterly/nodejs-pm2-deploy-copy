@@ -37,13 +37,8 @@ module.exports = {
       path: cleanedDeployPath,
       key: "~/.ssh/vm_access/private",
       "pre-deploy-local": `scp -i ~/.ssh/vm_access/private backend/.env ${DEPLOY_USER}@${DEPLOY_HOST}:${cleanedDeployPath}/current/backend`,
-      "post-deploy": `
-        export NVM_DIR="$HOME/.nvm" &&
-        [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" &&
-        "$NVM_DIR/versions/node/v22.19.0/bin/npm" ci &&
-        "$NVM_DIR/versions/node/v22.19.0/bin/npm" run build &&
-        "$NVM_DIR/versions/node/v22.19.0/bin/pm2" startOrRestart ecosystem.config.js --env production
-      `
+      "post-deploy":
+        "export NVM_DIR=\"$HOME/.nvm\" && [ -s \"$NVM_DIR/nvm.sh\" ] && source \"$NVM_DIR/nvm.sh\" && nvm use 22.19.0 && cd backend && pwd && npm ci && npm i && npm run build && pm2 startOrRestart ecosystem.config.js --env production",
     },
   },
 }; 
