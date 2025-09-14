@@ -18,7 +18,7 @@ module.exports = {
       host: DEPLOY_HOST,
       ref: DEPLOY_REF,
       repo: DEPLOY_REPO,
-      path: DEPLOY_PATH,
+      path: process.env.DEPLOY_PATH,
       key: "~/.ssh/vm_access/private",
       "pre-deploy-local": `scp -i ~/.ssh/vm_access/private backend/.env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}/backend`,
       "post-deploy":
