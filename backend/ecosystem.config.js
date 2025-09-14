@@ -21,7 +21,7 @@ module.exports = {
       repo: DEPLOY_REPO,
       path: DEPLOY_PATH,
       key: "~/.ssh/vm_access/private",
-      "pre-deploy-local": `scp backend/.env ${DEPLOY_USER}@${DEPLOY_HOST}:/home/user/nodejs-pm2-deploy-copy/backend`,
+      "pre-deploy-local": `scp -i ~/.ssh/vm_access/private backend/.env ${DEPLOY_USER}@${DEPLOY_HOST}:/home/user/nodejs-pm2-deploy-copy/backend`,
       "post-deploy":
         "cd backend && pwd && npm ci && npm i && npm run build && pm2 startOrRestart ecosystem.config.js --env production",
     },
