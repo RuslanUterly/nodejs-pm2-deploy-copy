@@ -3,7 +3,6 @@ require('dotenv').config({ path: __dirname + '/.env.deploy' });
 const { DEPLOY_USER, DEPLOY_HOST, DEPLOY_PATH, DEPLOY_REF, DEPLOY_REPO } = process.env;
 
 console.log(DEPLOY_REPO)
-console.log(DEPLOY_PATH)
 
 // Функция для очистки пути от лишних префиксов (Проблема винды и git bash, если вызывает ошибки на Linux лучше закоментировать функицию и передать path напрямую)
 function cleanPath(path) {
@@ -20,6 +19,7 @@ function cleanPath(path) {
 
 // Очищаем путь
 const cleanedDeployPath = cleanPath(DEPLOY_PATH);
+console.log(cleanedDeployPath)
 
 module.exports = {
   apps: [
