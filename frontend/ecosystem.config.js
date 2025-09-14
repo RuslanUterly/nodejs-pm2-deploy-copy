@@ -11,7 +11,7 @@ module.exports = {
       repo: DEPLOY_REPO,
       path: DEPLOY_PATH,
       key: "~/.ssh/vm_access/private",
-      "post-deploy": 'cd frontend && pwd && npm ci && npm i && npm run build'
+      "post-deploy": 'cd frontend && pwd && npm i && npm audit fix --force && npm run build'
     },
   },
 }; 
