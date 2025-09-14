@@ -5,6 +5,22 @@ const { DEPLOY_USER, DEPLOY_HOST, DEPLOY_PATH, DEPLOY_REF, DEPLOY_REPO } = proce
 console.log(DEPLOY_REPO)
 console.log(DEPLOY_PATH)
 
+// Функция для очистки пути от лишних префиксов (Проблема винды и git bash, если вызывает ошибки на Linux лучше закоментировать функицию и передать path напрямую)
+function cleanPath(path) {
+  if (!path) return path;
+  
+  // Удаляем все до первого вхождения "/home"
+  const homeIndex = path.indexOf('/home');
+  if (homeIndex > 0) {
+    return path.substring(homeIndex);
+  }
+  
+  return path;
+}
+
+// Очищаем путь
+const cleanedDeployPath = cleanPath(DEPLOY_PATH);
+
 module.exports = {
   apps: [
     {
@@ -20,7 +36,7 @@ module.exports = {
       repo: DEPLOY_REPO,
       path: process.env.DEPLOY_PATH,
       key: "~/.ssh/vm_access/private",
-      "pre-deploy-local": `scp -i ~/.ssh/vm_access/private backend/.env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}/backend`,
+      "pre-deploy-local": `scp -i ~/.ssh/vm_access/private backend/.env ${DEPLOY_USER}@${DEPLOY_HOST}:${cleanedDeployPath}/backend`,
       "post-deploy":
         "cd backend && pwd && npm ci && npm i && npm run build && pm2 startOrRestart ecosystem.config.js --env production",
     },
