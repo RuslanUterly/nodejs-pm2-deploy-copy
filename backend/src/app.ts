@@ -11,7 +11,15 @@ import routes from './routes';
 
 const { PORT = 3000 } = process.env;
 const app = express();
-mongoose.connect(DB_ADDRESS, { family: 4 });
+
+const options = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 5000, 
+  connectTimeoutMS: 10000, 
+};
+
+mongoose.connect(DB_ADDRESS, options);
 
 // Только для локальных тестов. Не используйте это в продакшене
 // app.use(cors())
