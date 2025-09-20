@@ -7,6 +7,10 @@ module.exports = {
     {
       name: "mesto-api",
       script: "dist/app.js",
+      env: {
+        NODE_ENV: 'production',
+        DB_ADDRESS: 'mongodb://127.0.0.1:27017/mestodb?directConnection=true'
+      }
     },
   ],
   deploy: {
