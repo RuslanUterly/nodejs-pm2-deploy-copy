@@ -6,7 +6,13 @@ module.exports = {
   apps: [
     {
       name: "mesto-api",
-      script: "dist/app.js"
+      script: "dist/app.js",
+      env: {
+        NODE_ENV: "development"
+      },
+      env_production: {
+        NODE_ENV: "production"
+      }
     }
   ],
   deploy: {
